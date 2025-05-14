@@ -17,7 +17,8 @@ Add this into a CI pipeline:
 
 ```yaml
 steps:
-    - uses: MystenLabs/actions/prettier-move@v1
+    - uses: actions/checkout@v4
+    - uses: MystenLabs/move-formatter-action@v1
       with:
           working-directory: path/to/move/code # eg packages
 ```
@@ -28,11 +29,11 @@ Full example using this action:
 
 ```yaml
 jobs:
-    check-formatting:
+    check-move-formatting:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
-            - uses: MystenLabs/actions/prettier-move@v1
+            - uses: MystenLabs/move-formatter-action@v1
               with:
                   prettier-plugin-move-version: "latest" # optional
                   working-directory: "." # optional
