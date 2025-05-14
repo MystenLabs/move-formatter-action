@@ -14,9 +14,9 @@ A GitHub Action to check formatting of Move files using [`@mysten/prettier-plugi
 Add this into a CI job:
 
 ```yaml
-- uses: your-name/prettier-move-action@v1
+- uses: MystenLabs/actions/prettier-move@v1
   with:
-      working-directory: path/to/move/code
+      working-directory: path/to/move/code # eg packages
 ```
 
 ## Example
@@ -29,7 +29,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
-            - uses: your-name/prettier-move-action@v1
+            - uses: MystenLabs/actions/prettier-move@v1
               with:
                   working-directory: "." # optional
                   pattern: "**/*.move" # optional

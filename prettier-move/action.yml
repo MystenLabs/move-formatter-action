@@ -3,6 +3,7 @@
 
 name: "Check Move Formatting"
 description: "Check Move code formatting using `prettier-plugin-move`"
+author: "Mysten Labs"
 inputs:
     working-directory:
         description: "Directory containing Move files to check"
@@ -12,6 +13,14 @@ inputs:
         description: "Glob pattern for Move files"
         required: false
         default: "**/*.move"
+    prettier-plugin-move-version:
+        description: "Version of prettier to use"
+        required: false
+        default: "latest"
+    write-changes:
+        description: "Write changes to files"
+        required: false
+        default: "false"
 
 runs:
     using: "composite"
@@ -20,8 +29,13 @@ runs:
 
         - name: Install prettier-plugin-move
           shell: bash
-          run: npm install @mysten/prettier-plugin-move
+          run: npm install @mysten/prettier-plugin-move@${{ inputs.prettier-plugin-move-version }}
 
         - name: Run prettier-move
           shell: bash
-          run: cd ${{ inputs.working-directory }} && npx prettier-move -c ${{ inputs.pattern }}
+          run: |
+            if [ "${{ inputs.write-changes }}" = "true" ]; then
+                cd ${{ inputs.working-directory }} && npx prettier-move -w ${{ inputs.pattern }}
+            else
+                cd ${{ inputs.working-directory }} && npx prettier-move -c ${{ inputs.pattern }}
+            fi
