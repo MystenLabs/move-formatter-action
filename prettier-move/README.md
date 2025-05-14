@@ -4,22 +4,25 @@ A GitHub Action to check formatting of Move files using [`@mysten/prettier-plugi
 
 ## Inputs
 
-| Name              | Description                       | Default     |
-| ----------------- | --------------------------------- | ----------- |
-| working-directory | Directory with your Move packages | `.`         |
-| pattern           | Glob pattern for Move files       | `**/*.move` |
+| Name                         | Description                                  | Default     |
+| ---------------------------- | -------------------------------------------- | ----------- |
+| working-directory            | Directory with your Move packages            | `.`         |
+| pattern                      | Glob pattern for Move files                  | `**/*.move` |
+| prettier-plugin-move-version | Version of the plugin to use                 | `latest`    |
+| write-changes                | Whether to fix changes (instead of checking) | `false`     |
 
 ## Simple Use
 
-Add this into a CI job:
+Add this into a CI pipeline:
 
 ```yaml
-- uses: MystenLabs/actions/prettier-move@v1
-  with:
-      working-directory: path/to/move/code # eg packages
+steps:
+    - uses: MystenLabs/actions/prettier-move@v1
+      with:
+          working-directory: path/to/move/code # eg packages
 ```
 
-## Example
+## Using Options
 
 Full example using this action:
 
@@ -31,8 +34,10 @@ jobs:
             - uses: actions/checkout@v4
             - uses: MystenLabs/actions/prettier-move@v1
               with:
+                  prettier-plugin-move-version: "latest" # optional
                   working-directory: "." # optional
                   pattern: "**/*.move" # optional
+                  write-changes: false # optional
 ```
 
 ## License
